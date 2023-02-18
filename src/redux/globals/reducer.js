@@ -5,12 +5,15 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
+  const updatedState = { ...state };
+
   switch (action.type) {
     case NAVIGATION:
-      break;
+      updatedState.shownPage = action.to;
+      return updatedState;
 
     default:
-      return state;
+      return updatedState;
   }
 };
 export default reducer;
