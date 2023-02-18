@@ -6,8 +6,6 @@ import ProductsContainer from "../sections/ProductsContainer";
 const Main = () => {
   const { shownPage } = useSelector((state) => state.globals);
 
-  console.log(shownPage);
-
   return (
     <main>
       {shownPage === "home" ? (
