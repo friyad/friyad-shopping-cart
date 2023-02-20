@@ -30,14 +30,15 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-  const updatedState = { ...state };
-
   switch (action.type) {
     case ADDPRODUCT:
-      return updatedState;
+      return {
+        ...state,
+        allProducts: [...state.allProducts, action.data],
+      };
 
     default:
-      return updatedState;
+      return state;
   }
 };
 export default reducer;
