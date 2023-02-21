@@ -1,9 +1,14 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import logo from "../assets/images/logo.png";
 import { handleNavigation } from "../redux/globals/actions";
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const { cartItems } = useSelector((state) => state.products);
+  const totalQuantity = cartItems.reduce(
+    (prevQuantity, item) => item.quantity,
+    0
+  );
 
   return (
     <div>
@@ -27,7 +32,7 @@ const Navbar = () => {
               id="lws-cart"
             >
               <i className="text-xl fa-sharp fa-solid fa-bag-shopping" />
-              <span id="lws-totalCart">0</span>
+              <span id="lws-totalCart">{totalQuantity}</span>
             </button>
           </div>
         </div>

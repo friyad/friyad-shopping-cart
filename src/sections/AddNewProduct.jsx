@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import generateRandomId from "../hooks/generateRandomId";
 import { handleAddProduct } from "../redux/products/actions";
 
 const AddNewProduct = () => {
   const dispatch = useDispatch();
-  const { allProducts } = useSelector((state) => state.products);
   const [formData, setFormData] = useState({});
 
   const handleInputChange = (e) => {
@@ -15,7 +15,7 @@ const AddNewProduct = () => {
 
   const handleAddProductForm = (e) => {
     e.preventDefault();
-    const newProduct = { id: allProducts.length + 1, ...formData };
+    const newProduct = { id: generateRandomId(), ...formData };
     dispatch(handleAddProduct(newProduct));
     e.target.reset();
   };
