@@ -6,7 +6,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.products);
   const totalQuantity = cartItems.reduce(
-    (prevQuantity, item) => item.quantity,
+    (prevQuantity, item) => item.quantity + prevQuantity,
     0
   );
 
