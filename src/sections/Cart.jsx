@@ -16,14 +16,6 @@ const Cart = () => {
     0
   );
 
-  const updateProductItem = (item) => {
-    const updateProductItem = {
-      ...item,
-      quantity: item.quantity - 1,
-    };
-    dispatch(handleUpdateProduct(updateProductItem));
-  };
-
   const handleQuantityIncrease = (item) => {
     const productItem = allProducts.find((item) => item.id === item.id);
 
@@ -34,7 +26,29 @@ const Cart = () => {
       ...item,
       quantity: item.quantity + 1,
     };
-    updateProductItem(productItem);
+    const updateProductItem = {
+      ...productItem,
+      quantity: productItem.quantity - 1,
+    };
+    dispatch(handleUpdateProduct(updateProductItem));
+    dispatch(handleUpdateCartItem(updateCartItem));
+  };
+
+  const handleQuantityDecrease = (item) => {
+    const productItem = allProducts.find((item) => item.id === item.id);
+
+    if (item.quantity <= 1) {
+      return;
+    }
+    const updateCartItem = {
+      ...item,
+      quantity: item.quantity - 1,
+    };
+    const updateProductItem = {
+      ...productItem,
+      quantity: productItem.quantity + 1,
+    };
+    dispatch(handleUpdateProduct(updateProductItem));
     dispatch(handleUpdateCartItem(updateCartItem));
   };
 
@@ -91,7 +105,14 @@ const Cart = () => {
                           <i className="text-lg fa-solid fa-plus" />
                         </button>
                         <span className="lws-cartQuantity">{quantity}</span>
-                        <button className="lws-decrementQuantity">
+                        <button
+                          disabled={item.quantity <= 1 ? true : false}
+                          style={{
+                            opacity: item.quantity <= 1 ? 0.2 : 1,
+                          }}
+                          onClick={() => handleQuantityDecrease(item)}
+                          className="lws-decrementQuantity"
+                        >
                           <i className="text-lg fa-solid fa-minus" />
                         </button>
                       </div>
