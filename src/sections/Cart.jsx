@@ -1,7 +1,12 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  handleUpdateCartItem,
+  handleUpdateProduct,
+} from "../redux/products/actions";
 
 const Cart = () => {
-  const { cartItems } = useSelector((state) => state.products);
+  const dispatch = useDispatch();
+  const { cartItems, allProducts } = useSelector((state) => state.products);
   const totalPrice = cartItems.reduce(
     (prevPrice, item) => item.price + prevPrice,
     0
@@ -10,6 +15,28 @@ const Cart = () => {
     (prevQuantity, item) => item.quantity + prevQuantity,
     0
   );
+
+  const updateProductItem = (item) => {
+    const updateProductItem = {
+      ...item,
+      quantity: item.quantity - 1,
+    };
+    dispatch(handleUpdateProduct(updateProductItem));
+  };
+
+  const handleQuantityIncrease = (item) => {
+    const productItem = allProducts.find((item) => item.id === item.id);
+
+    if (productItem.quantity <= 0) {
+      return;
+    }
+    const updateCartItem = {
+      ...item,
+      quantity: item.quantity + 1,
+    };
+    updateProductItem(productItem);
+    dispatch(handleUpdateCartItem(updateCartItem));
+  };
 
   return (
     <main className="py-16">
@@ -20,6 +47,7 @@ const Cart = () => {
             {cartItems.length > 0 ? (
               cartItems.map((item) => {
                 const { id, imgURL, title, category, price, quantity } = item;
+                const productItem = allProducts.find((item) => item.id === id);
 
                 return (
                   <div key={id} className="cartCard">
@@ -52,7 +80,14 @@ const Cart = () => {
                     >
                       {/* amount buttons */}
                       <div className="flex items-center space-x-4">
-                        <button className="lws-incrementQuantity">
+                        <button
+                          disabled={productItem.quantity <= 0 ? true : false}
+                          style={{
+                            opacity: productItem.quantity <= 0 ? 0.2 : 1,
+                          }}
+                          onClick={() => handleQuantityIncrease(item)}
+                          className="lws-incrementQuantity"
+                        >
                           <i className="text-lg fa-solid fa-plus" />
                         </button>
                         <span className="lws-cartQuantity">{quantity}</span>
