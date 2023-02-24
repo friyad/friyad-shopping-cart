@@ -3,6 +3,7 @@ import {
   ADD_TO_CART,
   UPDATE_CART_ITEM,
   UPDATE_PRODUCT,
+  DELETE_CART_ITEM,
 } from "./actionTypes";
 
 const initialState = {
@@ -80,6 +81,13 @@ const reducer = (state = initialState, action) => {
 
       return updatedState;
     }
+
+    case DELETE_CART_ITEM:
+      updatedState.cartItems = updatedState.cartItems.filter(
+        (item) => item.id !== action.payload
+      );
+
+      return updatedState;
 
     default:
       return state;

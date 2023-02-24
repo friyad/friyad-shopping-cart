@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
+  handleDeleteCartItem,
   handleUpdateCartItem,
   handleUpdateProduct,
 } from "../redux/products/actions";
@@ -17,7 +18,7 @@ const Cart = () => {
   );
 
   const handleQuantityIncrease = (item) => {
-    const productItem = allProducts.find((item) => item.id === item.id);
+    const productItem = allProducts.find((i) => i.id === item.id);
 
     if (productItem.quantity <= 0) {
       return;
@@ -35,7 +36,7 @@ const Cart = () => {
   };
 
   const handleQuantityDecrease = (item) => {
-    const productItem = allProducts.find((item) => item.id === item.id);
+    const productItem = allProducts.find((i) => i.id === item.id);
 
     if (item.quantity <= 1) {
       return;
@@ -50,6 +51,17 @@ const Cart = () => {
     };
     dispatch(handleUpdateProduct(updateProductItem));
     dispatch(handleUpdateCartItem(updateCartItem));
+  };
+
+  const handleCartItemDelete = (item) => {
+    const productItem = allProducts.find((i) => i.id === item.id);
+
+    const updateProductItem = {
+      ...productItem,
+      quantity: productItem.quantity + item.quantity,
+    };
+    dispatch(handleUpdateProduct(updateProductItem));
+    dispatch(handleDeleteCartItem(item.id));
   };
 
   return (
@@ -136,7 +148,10 @@ const Cart = () => {
             md:justify-end md:mt-0
           "
                     >
-                      <button className="lws-removeFromCart">
+                      <button
+                        onClick={() => handleCartItemDelete(item)}
+                        className="lws-removeFromCart"
+                      >
                         <i className="text-lg text-red-400 fa-solid fa-trash" />
                       </button>
                     </div>
