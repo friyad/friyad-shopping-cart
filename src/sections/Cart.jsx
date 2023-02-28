@@ -9,11 +9,7 @@ const Cart = () => {
   const dispatch = useDispatch();
   const { cartItems, allProducts } = useSelector((state) => state.products);
   const totalPrice = cartItems.reduce(
-    (prevPrice, item) => item.price + prevPrice,
-    0
-  );
-  const totalQuantity = cartItems.reduce(
-    (prevQuantity, item) => item.quantity + prevQuantity,
+    (prevPrice, item) => prevPrice + item.price * item.quantity,
     0
   );
 
@@ -176,10 +172,7 @@ const Cart = () => {
                 <div className="flex items-center justify-between">
                   <p>Sub Total</p>
                   <p>
-                    BDT{" "}
-                    <span className="lws-subtotal">
-                      {totalPrice * totalQuantity}
-                    </span>
+                    BDT <span className="lws-subtotal">{totalPrice}</span>
                   </p>
                 </div>
                 {/* Discount */}
@@ -200,10 +193,7 @@ const Cart = () => {
                 <div className="flex items-center justify-between pb-4">
                   <p className="font-bold">TOTAL</p>
                   <p className="font-bold">
-                    BDT{" "}
-                    <span className="lws-total">
-                      {totalPrice * totalQuantity}
-                    </span>
+                    BDT <span className="lws-total">{totalPrice}</span>
                   </p>
                 </div>
                 <button className="placeOrderbtn">place order</button>
