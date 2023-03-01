@@ -8,30 +8,14 @@ import {
 
 const initialState = {
   allProducts: [
-    {
-      id: "nopqrstuvwxyzABC2",
-      imgURL: "https://i.dummyjson.com/data/products/59/thumbnail.jpg",
-      title: "Spring and summershoes",
-      category: "Mens shoes",
-      price: 29,
-      quantity: 5,
-    },
-    {
-      id: "nopqrstuvwxyzABC3",
-      imgURL: "https://i.dummyjson.com/data/products/59/thumbnail.jpg",
-      title: "Spring and summershoes",
-      category: "Mens shoes",
-      price: 310,
-      quantity: 10,
-    },
-    {
-      id: "nopqrstuvwxyzABC4",
-      imgURL: "https://i.dummyjson.com/data/products/59/thumbnail.jpg",
-      title: "Spring and summershoes",
-      category: "Mens shoes",
-      price: 411,
-      quantity: 8,
-    },
+    // {
+    //   id: "nopqrstuvwxyzABC2",
+    //   imgURL: "https://i.dummyjson.com/data/products/59/thumbnail.jpg",
+    //   title: "Spring and summershoes",
+    //   category: "Mens shoes",
+    //   price: 29,
+    //   quantity: 5,
+    // },
   ],
   cartItems: [],
 };
